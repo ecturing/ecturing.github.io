@@ -1,0 +1,756 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/GitHub.svg">
+  <link rel="icon" href="/img/GitHub.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="第一章计算机系统漫游  第一部分 程序结构与执行  第二章 信息的表示与处理  二进制  十进制 十六进制互转 低转高：用短除法反复短除高进制取余 高转低：用高进制的幂乘以每个高进制数字  字数据大小 每台计算机都有字长，指明指针数据的标称大小(normal size)，虚拟地址以字来编码，对于ω\omegaω位的机器虚拟地址范围为：0~2ω−12^{\omega}-12ω−1,程序最多访问2ω">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入理解计算机系统">
+<meta property="og:url" content="http://example.com/2022/01/16/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F/index.html">
+<meta property="og:site_name" content="Blogs">
+<meta property="og:description" content="第一章计算机系统漫游  第一部分 程序结构与执行  第二章 信息的表示与处理  二进制  十进制 十六进制互转 低转高：用短除法反复短除高进制取余 高转低：用高进制的幂乘以每个高进制数字  字数据大小 每台计算机都有字长，指明指针数据的标称大小(normal size)，虚拟地址以字来编码，对于ω\omegaω位的机器虚拟地址范围为：0~2ω−12^{\omega}-12ω−1,程序最多访问2ω">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="e:/图床仓库/compile.png">
+<meta property="article:published_time" content="2022-01-16T04:24:34.000Z">
+<meta property="article:modified_time" content="2022-04-03T08:21:35.901Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="e:/图床仓库/compile.png">
+  
+  
+  <title>深入理解计算机系统 - Blogs</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Ecturing的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="深入理解计算机系统">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-01-16 12:24" pubdate>
+        2022年1月16日 中午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.7k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      32 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">深入理解计算机系统</h1>
+            
+            <div class="markdown-body">
+              <h2 id="第一章计算机系统漫游"><a class="markdownIt-Anchor" href="#第一章计算机系统漫游"></a> 第一章计算机系统漫游</h2>
+<h1 id="第一部分-程序结构与执行"><a class="markdownIt-Anchor" href="#第一部分-程序结构与执行"></a> 第一部分 程序结构与执行</h1>
+<h2 id="第二章-信息的表示与处理"><a class="markdownIt-Anchor" href="#第二章-信息的表示与处理"></a> 第二章 信息的表示与处理</h2>
+<h3 id="二进制-十进制-十六进制互转"><a class="markdownIt-Anchor" href="#二进制-十进制-十六进制互转"></a> 二进制  十进制 十六进制互转</h3>
+<p>低转高：用短除法反复短除高进制取余</p>
+<p>高转低：用高进制的幂乘以每个高进制数字</p>
+<h3 id="字数据大小"><a class="markdownIt-Anchor" href="#字数据大小"></a> 字数据大小</h3>
+<p>每台计算机都有字长，指明指针数据的标称大小(normal size)，虚拟地址以字来编码，对于<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>ω</mi></mrow><annotation encoding="application/x-tex">\omega</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">ω</span></span></span></span>位的机器虚拟地址范围为：0~<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mi>ω</mi></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2^{\omega}-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.747722em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">ω</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>,程序最多访问<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mi>ω</mi></msup></mrow><annotation encoding="application/x-tex">2^{\omega}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.664392em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">ω</span></span></span></span></span></span></span></span></span></span></span></span>个字节</p>
+<blockquote>
+<p>32位机器虚拟地址限长为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mn>32</mn></msup></mrow><annotation encoding="application/x-tex">2^{32}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></span>字节=<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mn>32</mn></msup><mi mathvariant="normal">/</mi><msup><mn>2</mn><mn>30</mn></msup></mrow><annotation encoding="application/x-tex">2^{32}/2^{30}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span><span class="mord mtight">2</span></span></span></span></span></span></span></span></span><span class="mord">/</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span><span class="mord mtight">0</span></span></span></span></span></span></span></span></span></span></span></span>=<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">2^{2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></span>=4Gb,32位操作系统最多只能使用4Gb的内存</p>
+</blockquote>
+<h3 id="寻址和字节顺序"><a class="markdownIt-Anchor" href="#寻址和字节顺序"></a> 寻址和字节顺序</h3>
+<p><em>小端法</em> 最低有效字节在最前面</p>
+<p><em>大端法</em> 最高有效字节在最前面</p>
+<h3 id="整数表示"><a class="markdownIt-Anchor" href="#整数表示"></a> 整数表示</h3>
+<h4 id="原码补码反码"><a class="markdownIt-Anchor" href="#原码补码反码"></a> 原码，补码，反码</h4>
+<p>机器数：一个数在计算机中的二进制表示形式, 叫做这个数的机器数。机器数是带符号的，在计算机用一个数的最高位存放符号, 正数为0, 负数为1。</p>
+<p>真值：因为第一位是符号位，所以机器数的形式值就不等于真正的数值。例如上面的有符号数 10000011，其最高位1代表负，其真正数值是 -3 而不是形式值131（10000011转换成十进制等于131）。所以，为区别起见，将带符号位的机器数对应的真正数值称为机器数的真值。</p>
+<p>原码就是符号位加上真值的绝对值, 即用第一位表示符号, 其余位表示值. 比如如果是8位二进制:</p>
+<blockquote>
+<p>[+1]原 = 0000 0001</p>
+<p>[-1]原 = 1000 0001</p>
+</blockquote>
+<hr />
+<p>反码的表示方法是:<br />
+正数的反码是其本身<br />
+负数的反码是在其原码的基础上, 符号位不变，其余各个位取反.</p>
+<blockquote>
+<p>[+1] = [00000001]原 = [00000001]反</p>
+<p>[-1] = [10000001]原 = [11111110]反</p>
+</blockquote>
+<hr />
+<p>补码的表示方法是:<br />
+正数的补码就是其本身<br />
+负数的补码是在其原码的基础上, 符号位不变, 其余各位取反, 最后+1. (即在反码的基础上+1)</p>
+<blockquote>
+<p>[+1] = [00000001]原 = [00000001]反 = [00000001]补</p>
+<p>[-1] = [10000001]原 = [11111110]反 = [11111111]补</p>
+</blockquote>
+<p>对于负数, 补码表示方式也是人脑无法直观看出其数值的. 通常也需要转换成原码在计算其数值.</p>
+<hr />
+<h4 id="有符号数转无符号数公式"><a class="markdownIt-Anchor" href="#有符号数转无符号数公式"></a> 有符号数转无符号数公式</h4>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>T</mi><mn>2</mn><msub><mi>U</mi><mi>ω</mi></msub><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mrow><mo fence="true">{</mo><mtable rowspacing="0.3599999999999999em" columnalign="left left" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>x</mi><mo>+</mo><msup><mn>2</mn><mi>ω</mi></msup></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>x</mi><mo>&lt;</mo><mn>0</mn></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mi>x</mi></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>x</mi><mo>≥</mo><mn>0</mn></mrow></mstyle></mtd></mtr></mtable></mrow></mrow><annotation encoding="application/x-tex">T2U_{\omega}(x)=
+\begin{cases}
+x+2^{\omega}&amp;{x&lt;0}
+\\
+x&amp;x\ge0
+\end{cases}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mord">2</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10903em;">U</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.10903em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">ω</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:3.0000299999999998em;vertical-align:-1.25003em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size4">{</span></span><span class="mord"><span class="mtable"><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.69em;"><span style="top:-3.69em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">ω</span></span></span></span></span></span></span></span></span></span></span><span style="top:-2.25em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord mathdefault">x</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.19em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:1em;"></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.69em;"><span style="top:-3.69em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord"><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord">0</span></span></span></span><span style="top:-2.25em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≥</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.19em;"><span></span></span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<h4 id="无符号数转有符号数公式"><a class="markdownIt-Anchor" href="#无符号数转有符号数公式"></a> 无符号数转有符号数公式</h4>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>U</mi><mn>2</mn><msub><mi>T</mi><mi>ω</mi></msub><mo stretchy="false">(</mo><mi>u</mi><mo stretchy="false">)</mo><mo>=</mo><mrow><mo fence="true">{</mo><mtable rowspacing="0.3599999999999999em" columnalign="left left" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mi>u</mi></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>u</mi><mo>≤</mo><mi>T</mi><mi>m</mi><mi>a</mi><msub><mi>x</mi><mi>ω</mi></msub></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>u</mi><mo>−</mo><msup><mn>2</mn><mi>u</mi></msup></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>u</mi><mo>&gt;</mo><mi>T</mi><mi>m</mi><mi>a</mi><msub><mi>x</mi><mi>ω</mi></msub></mrow></mstyle></mtd></mtr></mtable></mrow></mrow><annotation encoding="application/x-tex">U2T_{\omega}(u)=
+\begin{cases}
+u&amp;u\le Tmax_{\omega}
+\\
+u-2^{u}&amp;u&gt;Tmax_{\omega}
+\end{cases}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">U</span><span class="mord">2</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">ω</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathdefault">u</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:3.0000299999999998em;vertical-align:-1.25003em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size4">{</span></span><span class="mord"><span class="mtable"><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.69em;"><span style="top:-3.69em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord mathdefault">u</span></span></span><span style="top:-2.25em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord mathdefault">u</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">u</span></span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.19em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:1em;"></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.69em;"><span style="top:-3.69em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord mathdefault">u</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">ω</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span style="top:-2.25em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord mathdefault">u</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">ω</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.19em;"><span></span></span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<h3 id="浮点数的表示"><a class="markdownIt-Anchor" href="#浮点数的表示"></a> 浮点数的表示</h3>
+<h2 id="第三章-程序的机器级表示汇编"><a class="markdownIt-Anchor" href="#第三章-程序的机器级表示汇编"></a> 第三章 程序的机器级表示(汇编)</h2>
+<h3 id="数据格式"><a class="markdownIt-Anchor" href="#数据格式"></a> 数据格式</h3>
+<blockquote>
+<p>Intel采用术语”字(word)“表示16位数据类型，因此32位数称为”双字(double word)“,64位数为”四字(quad words)“</p>
+</blockquote>
+<hr />
+<p>x86_64中C语言数据类型大小</p>
+<table>
+<thead>
+<tr>
+<th>C声明</th>
+<th>Intel数据类型</th>
+<th>汇编代码后缀</th>
+<th>大小(字节)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>char</td>
+<td>字节</td>
+<td>b</td>
+<td>1</td>
+</tr>
+<tr>
+<td>short</td>
+<td>字</td>
+<td>w</td>
+<td>2</td>
+</tr>
+<tr>
+<td>int</td>
+<td>双字</td>
+<td>l</td>
+<td>4</td>
+</tr>
+<tr>
+<td>long</td>
+<td>四字</td>
+<td>q</td>
+<td>8</td>
+</tr>
+<tr>
+<td>char*</td>
+<td>四字</td>
+<td>q</td>
+<td>8</td>
+</tr>
+<tr>
+<td>float</td>
+<td>单精度</td>
+<td>s</td>
+<td>4</td>
+</tr>
+<tr>
+<td>double</td>
+<td>双精度</td>
+<td>l</td>
+<td>8</td>
+</tr>
+</tbody>
+</table>
+<h4 id="数据传送指令"><a class="markdownIt-Anchor" href="#数据传送指令"></a> 数据传送指令</h4>
+<p><code>movb</code>:传送字节<br />
+<code>movw</code>:传送字<br />
+<code>movl</code>:传送双字<br />
+<code>movq</code>:传送四字</p>
+<h4 id="x86_64寄存器图"><a class="markdownIt-Anchor" href="#x86_64寄存器图"></a> x86_64寄存器图</h4>
+<img src="E:\图床仓库\compile.png" srcset="/img/loading.gif" lazyload alt="compile" style="zoom: 67%;" />
+<h3 id="操作数指示符"><a class="markdownIt-Anchor" href="#操作数指示符"></a> 操作数指示符</h3>
+<p><code>立即数</code>：用来表示常数，在ATT格式汇编，立即数的书写方法为”$“后面跟着一个用标准C表示法的整数。不同的指令允许的立即数范围也不同，汇编器会自动选择最紧凑的方式进行编码</p>
+<p><code>寄存器</code>：它表示某个寄存器的内容，16个寄存器的低位1字节，2字节，4字节或8字节中的一个作为操作数，这些字节数分别对应于8位，16位，32位或64位，我们用符号<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>r</mi><mi>a</mi></msub></mrow><annotation encoding="application/x-tex">r_a</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">a</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>表示任意寄存器，用<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>R</mi><mo stretchy="false">[</mo><msub><mi>r</mi><mi>a</mi></msub><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">R[r_a]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mopen">[</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">a</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">]</span></span></span></span>来表示他的值，这是将寄存器集合看成一个数组R，用寄存器标识符做索引</p>
+<p><code>内存引用</code>：它会根据计算出的地址访问某个内存位置，因为将内存看成一个很大的字节数组，用符号<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>M</mi><mi>b</mi></msub><mo stretchy="false">[</mo><mi>A</mi><mi>d</mi><mi>d</mi><mi>r</mi><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">M_b[Addr]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.10903em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">b</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">[</span><span class="mord mathdefault">A</span><span class="mord mathdefault">d</span><span class="mord mathdefault">d</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mclose">]</span></span></span></span>表示对存储在内存中从地址<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi><mi>d</mi><mi>d</mi><mi>r</mi></mrow><annotation encoding="application/x-tex">Addr</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">A</span><span class="mord mathdefault">d</span><span class="mord mathdefault">d</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span></span></span></span>开始的b个字节的引用。</p>
+<h3 id="操作数寻址表"><a class="markdownIt-Anchor" href="#操作数寻址表"></a> 操作数寻址表</h3>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>M</mi></mrow><annotation encoding="application/x-tex">M</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span></span></span></span>：主存寻址操作<br />
+<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>R</mi></mrow><annotation encoding="application/x-tex">R</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span></span></span></span>：寄存器寻址操作<br />
+<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi></mrow><annotation encoding="application/x-tex">r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span></span></span></span>：为寄存器<br />
+<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>r</mi><mi>b</mi></msub></mrow><annotation encoding="application/x-tex">r_b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">b</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>：为偏移量<br />
+<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>I</mi><mi>m</mi><mi>m</mi></mrow><annotation encoding="application/x-tex">Imm</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="mord mathdefault">m</span><span class="mord mathdefault">m</span></span></span></span>：为基地址</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>格式</th>
+<th>操作数值</th>
+<th>名称</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>立即数</td>
+<td><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">$</mi><mi>I</mi><mi>m</mi><mi>m</mi></mrow><annotation encoding="application/x-tex">\$Imm</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.80556em;vertical-align:-0.05556em;"></span><span class="mord">$</span><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="mord mathdefault">m</span><span class="mord mathdefault">m</span></span></span></span></td>
+<td><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>I</mi><mi>m</mi><mi>m</mi></mrow><annotation encoding="application/x-tex">Imm</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="mord mathdefault">m</span><span class="mord mathdefault">m</span></span></span></span></td>
+<td>立即数寻址</td>
+</tr>
+<tr>
+<td>寄存器</td>
+<td><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>r</mi><mi>a</mi></msub></mrow><annotation encoding="application/x-tex">r_a</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">a</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></td>
+<td><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>R</mi><mo stretchy="false">[</mo><msub><mi>r</mi><mi>a</mi></msub><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">R[r_a]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mopen">[</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">a</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">]</span></span></span></span></td>
+<td>寄存器寻址</td>
+</tr>
+<tr>
+<td>存储器</td>
+<td><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>I</mi><mi>m</mi><mi>m</mi></mrow><annotation encoding="application/x-tex">Imm</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="mord mathdefault">m</span><span class="mord mathdefault">m</span></span></span></span></td>
+<td><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>M</mi><mo stretchy="false">[</mo><mi>I</mi><mi>m</mi><mi>m</mi><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">M[Imm]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="mord mathdefault">m</span><span class="mord mathdefault">m</span><span class="mclose">]</span></span></span></span></td>
+<td>绝对寻址</td>
+</tr>
+<tr>
+<td>存储器</td>
+<td><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo stretchy="false">(</mo><msub><mi>r</mi><mi>a</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(r_a)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">a</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></td>
+<td><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>M</mi><mo stretchy="false">[</mo><mi>R</mi><mo stretchy="false">(</mo><msub><mi>r</mi><mi>a</mi></msub><mo stretchy="false">)</mo><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">M[R(r_a)]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">a</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mclose">]</span></span></span></span></td>
+<td>间接寻址</td>
+</tr>
+<tr>
+<td>存储器</td>
+<td><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>I</mi><mi>m</mi><mi>m</mi><mo stretchy="false">(</mo><msub><mi>r</mi><mi>b</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">Imm(r_b)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="mord mathdefault">m</span><span class="mord mathdefault">m</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">b</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></td>
+<td><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>M</mi><mo stretchy="false">[</mo><mi>I</mi><mi>m</mi><mi>m</mi><mo>+</mo><mi>R</mi><mo stretchy="false">[</mo><msub><mi>r</mi><mi>b</mi></msub><mo stretchy="false">]</mo><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">M[Imm+R[r_b]]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="mord mathdefault">m</span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mopen">[</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">b</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">]</span><span class="mclose">]</span></span></span></span></td>
+<td>(基地址+偏移量)寻址</td>
+</tr>
+<tr>
+<td>存储器</td>
+<td><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo stretchy="false">(</mo><msub><mi>r</mi><mi>b</mi></msub><mo separator="true">,</mo><msub><mi>r</mi><mi>i</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(r_b,r_i)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">b</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></td>
+<td><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>M</mi><mo stretchy="false">[</mo><mi>R</mi><mo stretchy="false">[</mo><msub><mi>r</mi><mi>b</mi></msub><mo stretchy="false">]</mo><mo>+</mo><mi>R</mi><mo stretchy="false">[</mo><msub><mi>r</mi><mi>i</mi></msub><mo stretchy="false">]</mo><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">M[R[r_b]+R[r_i]]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mopen">[</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">b</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mopen">[</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">]</span><span class="mclose">]</span></span></span></span></td>
+<td>变址寻址</td>
+</tr>
+<tr>
+<td>存储器</td>
+<td><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>I</mi><mi>m</mi><mi>m</mi><mo stretchy="false">(</mo><msub><mi>r</mi><mi>b</mi></msub><mo separator="true">,</mo><msub><mi>r</mi><mi>i</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">Imm(r_b,r_i)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="mord mathdefault">m</span><span class="mord mathdefault">m</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">b</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></td>
+<td><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>M</mi><mo stretchy="false">[</mo><mi>I</mi><mi>m</mi><mi>m</mi><mo>+</mo><mi>R</mi><mo stretchy="false">[</mo><msub><mi>r</mi><mi>b</mi></msub><mo stretchy="false">]</mo><mo>+</mo><mi>R</mi><mo stretchy="false">[</mo><msub><mi>r</mi><mi>i</mi></msub><mo stretchy="false">]</mo><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">M[Imm+R[r_b]+R[r_i]]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="mord mathdefault">m</span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mopen">[</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">b</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mopen">[</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">]</span><span class="mclose">]</span></span></span></span></td>
+<td>变址寻址</td>
+</tr>
+<tr>
+<td>存储器</td>
+<td><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo stretchy="false">(</mo><mo separator="true">,</mo><msub><mi>r</mi><mi>i</mi></msub><mo separator="true">,</mo><mi>s</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(,r_i,s)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">s</span><span class="mclose">)</span></span></span></span></td>
+<td><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>M</mi><mo stretchy="false">[</mo><mi>R</mi><mo stretchy="false">[</mo><msub><mi>r</mi><mi>i</mi></msub><mo stretchy="false">]</mo><mo>⋅</mo><mi>s</mi><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">M[R[r_i]\cdot s]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mopen">[</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">s</span><span class="mclose">]</span></span></span></span></td>
+<td>比例变址寻址</td>
+</tr>
+<tr>
+<td>存储器</td>
+<td><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>I</mi><mi>m</mi><mi>m</mi><mo stretchy="false">(</mo><mo separator="true">,</mo><msub><mi>r</mi><mi>i</mi></msub><mo separator="true">,</mo><mi>s</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">Imm(,r_i,s)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="mord mathdefault">m</span><span class="mord mathdefault">m</span><span class="mopen">(</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">s</span><span class="mclose">)</span></span></span></span></td>
+<td><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>M</mi><mo stretchy="false">[</mo><mi>I</mi><mi>m</mi><mi>m</mi><mo>+</mo><mi>R</mi><mo stretchy="false">[</mo><msub><mi>r</mi><mi>i</mi></msub><mo stretchy="false">]</mo><mo>⋅</mo><mi>s</mi><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">M[Imm+R[r_i]\cdot s]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="mord mathdefault">m</span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mopen">[</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">s</span><span class="mclose">]</span></span></span></span></td>
+<td>比例变址寻址</td>
+</tr>
+<tr>
+<td>存储器</td>
+<td><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo stretchy="false">(</mo><msub><mi>r</mi><mi>b</mi></msub><mo separator="true">,</mo><msub><mi>r</mi><mi>i</mi></msub><mo separator="true">,</mo><mi>s</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(r_b,r_i,s)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">b</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">s</span><span class="mclose">)</span></span></span></span></td>
+<td><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>M</mi><mo stretchy="false">[</mo><mi>R</mi><mo stretchy="false">[</mo><msub><mi>r</mi><mi>b</mi></msub><mo stretchy="false">]</mo><mo>+</mo><mi>R</mi><mo stretchy="false">[</mo><msub><mi>r</mi><mi>i</mi></msub><mo stretchy="false">]</mo><mo>⋅</mo><mi>s</mi><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">M[R[r_b]+R[r_i]\cdot s]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mopen">[</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">b</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mopen">[</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">s</span><span class="mclose">]</span></span></span></span></td>
+<td>比例变址寻址</td>
+</tr>
+<tr>
+<td>存储器</td>
+<td><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>I</mi><mi>m</mi><mi>m</mi><mo stretchy="false">(</mo><msub><mi>r</mi><mi>b</mi></msub><mo separator="true">,</mo><msub><mi>r</mi><mi>i</mi></msub><mo separator="true">,</mo><mi>s</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">Imm(r_b,r_i,s)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="mord mathdefault">m</span><span class="mord mathdefault">m</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">b</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">s</span><span class="mclose">)</span></span></span></span></td>
+<td><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>M</mi><mo stretchy="false">[</mo><mi>I</mi><mi>m</mi><mi>m</mi><mo>+</mo><mi>R</mi><mo stretchy="false">[</mo><msub><mi>r</mi><mi>b</mi></msub><mo stretchy="false">]</mo><mo>+</mo><mi>R</mi><mo stretchy="false">[</mo><msub><mi>r</mi><mi>i</mi></msub><mo stretchy="false">]</mo><mo>⋅</mo><mi>s</mi><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">M[Imm+R[r_b]+R[r_i]\cdot s]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="mord mathdefault">m</span><span class="mord mathdefault">m</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mopen">[</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">b</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mopen">[</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">s</span><span class="mclose">]</span></span></span></span></td>
+<td>比例变址寻址</td>
+</tr>
+</tbody>
+</table>
+<h3 id="压入和弹出栈数据"><a class="markdownIt-Anchor" href="#压入和弹出栈数据"></a> 压入和弹出栈数据</h3>
+<blockquote>
+<p>在x86-64,程序栈放在内存的某个区域中，栈向下增长，这样一来栈顶元素的地址是所有栈中元素最低的。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>效果</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pushq S</td>
+<td><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>R</mi><mo stretchy="false">[</mo><mi mathvariant="normal">%</mi><mi>r</mi><mi>s</mi><mi>p</mi><mo stretchy="false">]</mo><mo>←</mo><mi>R</mi><mo stretchy="false">[</mo><mi mathvariant="normal">%</mi><mi>r</mi><mi>s</mi><mi>p</mi><mo stretchy="false">]</mo><mo>−</mo><mn>8</mn><mo separator="true">;</mo><mi>M</mi><mo stretchy="false">[</mo><mi>R</mi><mo stretchy="false">[</mo><mi mathvariant="normal">%</mi><mi>r</mi><mi>s</mi><mi>p</mi><mo stretchy="false">]</mo><mo stretchy="false">]</mo><mo>←</mo><mi>S</mi></mrow><annotation encoding="application/x-tex">R[\%rsp]\leftarrow R[\%rsp]-8;M[R[\%rsp]]\leftarrow S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mopen">[</span><span class="mord">%</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">s</span><span class="mord mathdefault">p</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">←</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mopen">[</span><span class="mord">%</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">s</span><span class="mord mathdefault">p</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">8</span><span class="mpunct">;</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mopen">[</span><span class="mord">%</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">s</span><span class="mord mathdefault">p</span><span class="mclose">]</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">←</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span></span></span></span></td>
+<td>四字压栈</td>
+</tr>
+<tr>
+<td>popq D</td>
+<td><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>D</mi><mo>←</mo><mi>M</mi><mo stretchy="false">[</mo><mi>R</mi><mo stretchy="false">[</mo><mi mathvariant="normal">%</mi><mi>r</mi><mi>s</mi><mi>p</mi><mo stretchy="false">]</mo><mo stretchy="false">]</mo><mo separator="true">;</mo><mi>R</mi><mo stretchy="false">[</mo><mi mathvariant="normal">%</mi><mi>r</mi><mi>s</mi><mi>p</mi><mo stretchy="false">]</mo><mo>←</mo><mi>R</mi><mo stretchy="false">[</mo><mi mathvariant="normal">%</mi><mi>r</mi><mi>s</mi><mi>p</mi><mo stretchy="false">]</mo><mo>−</mo><mn>8</mn></mrow><annotation encoding="application/x-tex">D\leftarrow M[R[\%rsp]];R[\%rsp]\leftarrow R[\%rsp]-8</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">D</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">←</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mopen">[</span><span class="mord">%</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">s</span><span class="mord mathdefault">p</span><span class="mclose">]</span><span class="mclose">]</span><span class="mpunct">;</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mopen">[</span><span class="mord">%</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">s</span><span class="mord mathdefault">p</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">←</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mopen">[</span><span class="mord">%</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">s</span><span class="mord mathdefault">p</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">8</span></span></span></span></td>
+<td>四字出栈</td>
+</tr>
+</tbody>
+</table>
+<p>指令pushq %rdp等效于以下指令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><pre><code class="hljs assembly">subq $8,%rsp<br>movq %rbp,(%rsp)<br></code></pre></td></tr></table></figure>
+<p>指令popq %rax等效以下指令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs assembly">movq (%rsp),%rax<br>addq $8,%rsp<br></code></pre></td></tr></table></figure>
+<h3 id="加载有效地址"><a class="markdownIt-Anchor" href="#加载有效地址"></a> 加载有效地址</h3>
+<blockquote>
+<p>加载有效地址的指令形式从内存读数据到寄存器，但实际上根本没有引用内存，他的第一个操作数看上去是一个内存引用，但该只看并不是从指定位置读入数据，而是将计算出有效地址写入到目的操作数，mov传送的是地址内容，lea传送的是地址</p>
+</blockquote>
+<h4 id="使用leamov实现c语言指针"><a class="markdownIt-Anchor" href="#使用leamov实现c语言指针"></a> 使用lea+mov实现C语言指针</h4>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">point</span><span class="hljs-params">()</span>&#123;<br>    <span class="hljs-type">int</span> a=<span class="hljs-number">8</span>;<br>    <span class="hljs-type">int</span> *p=&amp;a;<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs assembly">point():<br>        pushq   %rbp<br>        movq    %rsp, %rbp<br>        movl    $8, -12(%rbp)<br>        leaq    -12(%rbp), %rax<br>        movq    %rax, -8(%rbp)<br>        nop<br>        popq    %rbp<br>        ret<br></code></pre></td></tr></table></figure>
+<p>5-6行，lea操作将<code>-12(%rbp)</code>(即a的内存地址)放入rax寄存器，然后将rax寄存器内存储的地址放到内存中a的地址偏移4字节处</p>
+<h3 id="一元和二元操作"><a class="markdownIt-Anchor" href="#一元和二元操作"></a> 一元和二元操作</h3>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>add</td>
+<td>加法操作</td>
+</tr>
+<tr>
+<td>sub</td>
+<td>减法操作(目的操作数-原操作数)</td>
+</tr>
+<tr>
+<td>imul</td>
+<td>有符号乘法操作</td>
+</tr>
+<tr>
+<td>mul</td>
+<td>无符号乘法操作</td>
+</tr>
+<tr>
+<td>idiv</td>
+<td>有符号除法</td>
+</tr>
+<tr>
+<td>div</td>
+<td>无符号除法</td>
+</tr>
+<tr>
+<td>inc</td>
+<td>加1操作</td>
+</tr>
+<tr>
+<td>dec</td>
+<td>减1操作</td>
+</tr>
+<tr>
+<td>clto</td>
+<td>转换8字</td>
+</tr>
+</tbody>
+</table>
+<h3 id="控制"><a class="markdownIt-Anchor" href="#控制"></a> 控制</h3>
+<h4 id="条件码"><a class="markdownIt-Anchor" href="#条件码"></a> 条件码</h4>
+<h3 id="过程"><a class="markdownIt-Anchor" href="#过程"></a> 过程</h3>
+<h4 id="运行时栈"><a class="markdownIt-Anchor" href="#运行时栈"></a> 运行时栈</h4>
+<blockquote>
+<p>C语言过程调用机制的一个关键特征(大多数其他语言也是如此)在于使用了栈数据结构提供的后进先出的内存管理机制.<br />
+x86_64的栈地址是向低地址方向增长，而栈指针%rsp指向栈顶元素。通过push指令和pop指令将数据存入栈中或是从栈中取出。将栈指针减小一个适当的量可以为没有指定初始值的数据在栈上分配空间，类似通过增加栈指针来释放空间</p>
+</blockquote>
+<p><em>当x86_64过程需要的存储空间超过寄存器能存放的大小时，就会在栈上分配空间，这个部分称为过程的栈帧</em></p>
+<h3 id="数组的分配与访问"><a class="markdownIt-Anchor" href="#数组的分配与访问"></a> 数组的分配与访问</h3>
+<h3 id="异数的数据结构"><a class="markdownIt-Anchor" href="#异数的数据结构"></a> 异数的数据结构</h3>
+<h1 id="第二部分-在系统上运行程序"><a class="markdownIt-Anchor" href="#第二部分-在系统上运行程序"></a> 第二部分 在系统上运行程序</h1>
+<h1 id="第三部分-程序间的交流与通信"><a class="markdownIt-Anchor" href="#第三部分-程序间的交流与通信"></a> 第三部分 程序间的交流与通信</h1>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/02/18/C++Primer/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">C++ Primer</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/01/13/Kubernetes/">
+                        <span class="hidden-mobile">Kubernetes</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- KaTeX -->
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css" />
+  
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

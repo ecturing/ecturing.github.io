@@ -1,0 +1,616 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/GitHub.svg">
+  <link rel="icon" href="/img/GitHub.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="数据结构笔记(C语言)  写在前面 形参是实参的拷贝，指针是内存中的地址，引用变量是已经存在的变量的另一个名字（引用属于C++）。   普通变量做形参 因为形参是实参的拷贝，传入实参并不能修改实参的值 123456789void fun(int a)&amp;#123;    a&#x3D;8;&amp;#125;int main()&amp;#123;    int a&#x3D;2;    fun(a);    printf(&amp;quo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构">
+<meta property="og:url" content="http://example.com/2021/12/13/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/index.html">
+<meta property="og:site_name" content="Blogs">
+<meta property="og:description" content="数据结构笔记(C语言)  写在前面 形参是实参的拷贝，指针是内存中的地址，引用变量是已经存在的变量的另一个名字（引用属于C++）。   普通变量做形参 因为形参是实参的拷贝，传入实参并不能修改实参的值 123456789void fun(int a)&amp;#123;    a&#x3D;8;&amp;#125;int main()&amp;#123;    int a&#x3D;2;    fun(a);    printf(&amp;quo">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="c:%5CUsers%5CEcho%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210803005815511.png">
+<meta property="og:image" content="http://c.biancheng.net/uploads/allimg/190427/09452HG8-1.gif">
+<meta property="article:published_time" content="2021-12-13T03:34:49.000Z">
+<meta property="article:modified_time" content="2022-04-03T07:32:44.962Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="c:%5CUsers%5CEcho%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210803005815511.png">
+  
+  
+  <title>数据结构 - Blogs</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Ecturing的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="数据结构">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-12-13 11:34" pubdate>
+        2021年12月13日 中午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.8k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      41 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">数据结构</h1>
+            
+            <div class="markdown-body">
+              <h1 id="数据结构笔记c语言"><a class="markdownIt-Anchor" href="#数据结构笔记c语言"></a> 数据结构笔记(C语言)</h1>
+<h2 id="写在前面"><a class="markdownIt-Anchor" href="#写在前面"></a> 写在前面</h2>
+<p>形参是实参的拷贝，指针是内存中的地址，引用变量是已经存在的变量的另一个名字（引用属于C++）。</p>
+<ol>
+<li>
+<p>普通变量做形参</p>
+<p>因为形参是实参的拷贝，传入实参并不能修改实参的值</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">fun</span><span class="hljs-params">(<span class="hljs-type">int</span> a)</span></span>&#123;<br>    a=<span class="hljs-number">8</span>;<br>&#125;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    <span class="hljs-type">int</span> a=<span class="hljs-number">2</span>;<br>    <span class="hljs-built_in">fun</span>(a);<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;a的值为：%d&quot;</span>,a);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">a的值为：2<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>指针做形参</p>
+<p>指针是内存中的地址，指针做形参能够更改实参的值（但指针形参依然是main函数内指针的拷贝，只是地址相同）</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">fun</span><span class="hljs-params">(<span class="hljs-type">int</span> * p)</span></span>&#123;<br>    *p=<span class="hljs-number">8</span>;<br>&#125;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    <span class="hljs-type">int</span> *p;<br>    <span class="hljs-type">int</span> a=<span class="hljs-number">2</span>;<br>    p=&amp;a;<br>    <span class="hljs-built_in">fun</span>(p);<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;a的值为：%d&quot;</span>,a);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">a的值为：8<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>引用做形参</p>
+<p>引用相当于给一个变量起别名，引用形参相当于直接操作实参，没有拷贝过程</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">fun</span><span class="hljs-params">(<span class="hljs-type">int</span> &amp;p)</span></span>&#123;<br>    p=<span class="hljs-number">8</span>;<br>&#125;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    <span class="hljs-type">int</span> a=<span class="hljs-number">2</span>;<br>    <span class="hljs-built_in">fun</span>(a);<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;a的值为：%d&quot;</span>,a);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">a</span>的值为：<span class="hljs-number">8</span><br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>指针引用做形参</p>
+<p>指针引用是指针的别名，在函数内部可以修改指针引用指向的地址，而传指针传入的是指针拷贝，更改拷贝指针指向的地址并不会修改原实参所指向地址。即指针引用在函数内部可以更改实参所指向的值（即在函数中传入指针引用的条件为需要作为左值来更改实参数值）</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> &#123;<br>    <span class="hljs-type">int</span> a;<br>&#125;test;<br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">init</span><span class="hljs-params">(test *&amp;t)</span></span>&#123;<br>    test c;<br>    c.a=<span class="hljs-number">6</span>;<br>    t=&amp;c;<br>&#125;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    test *t;<br>    t=(test*)<span class="hljs-built_in">malloc</span>(<span class="hljs-built_in">sizeof</span>(test));<br>    t-&gt;a=<span class="hljs-number">9</span>;<br>    <span class="hljs-built_in">init</span>(t);<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;a的值为：%d&quot;</span>,t-&gt;a);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">不用引用a的值为：9<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>双指针做形参<br />
+双指针在作为函数参数时，可以可以实现类似指针引用的效果，在另外一些地方，也可等价于指针数组</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">char</span> **argv)</span></span>&#123;<br>    <span class="hljs-keyword">while</span>(argc-- &gt;<span class="hljs-number">0</span>)&#123;<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;argv:%d,*argv++:%s\n&quot;</span>, argc, *argv++);<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br>等价于<br><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">char</span> *argv[])</span></span>&#123;<br>    <span class="hljs-keyword">while</span>(argc-- &gt;<span class="hljs-number">0</span>)&#123;<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;argv:%d,*argv++:%s\n&quot;</span>, argc, *(argv++));<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="线性表"><a class="markdownIt-Anchor" href="#线性表"></a> 线性表</h2>
+<blockquote>
+<p>线性表就是可变数组，优点易于查找，且相较于数组更加灵活，存储密度大于链表，缺点是添加数据和删除数据的效率低于链表</p>
+</blockquote>
+<ul>
+<li>线性表结构体定义</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span>&#123;<br>    Emltype Data[Maxsize]; <span class="hljs-comment">//数据数组</span><br>    <span class="hljs-type">int</span> length;            <span class="hljs-comment">//动态数组长度</span><br>&#125; Sqlist;<br></code></pre></td></tr></table></figure>
+<hr />
+<h2 id="链表"><a class="markdownIt-Anchor" href="#链表"></a> 链表</h2>
+<h3 id="单链表"><a class="markdownIt-Anchor" href="#单链表"></a> 单链表</h3>
+<blockquote>
+<p>单链表又称线性表的链式存储，链表的节点包含数据域和指针域，链表的头指针指向链表的头节点（若存在头节点）或者开始节点，头节点为一个不存储数据的节点，通常是为了操作防止出现链表为空而设置的。链表的优点是添加数据和删除数据的效率高于线性表，缺点是查找效率较低，且存储密度低于线性表。</p>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> <span class="hljs-title class_">LNode</span>&#123;<br>    Elemtype data;<span class="hljs-comment">//数据域</span><br>    <span class="hljs-keyword">struct</span> <span class="hljs-title class_">LNode</span> *next;<span class="hljs-comment">//指向下一节点的next指针</span><br>&#125;LinkNode;<br></code></pre></td></tr></table></figure>
+<p>链表的插入方法有头插法和尾插法，头插法由于节点新建方法会导致输出链表时数据顺序与原输入数据顺序相反</p>
+<h3 id="双链表"><a class="markdownIt-Anchor" href="#双链表"></a> 双链表</h3>
+<blockquote>
+<p>双链表与单链表的区别为节点增加了节点的前驱指针，优点为可以快速访问到一个节点的前驱节点和后驱节点，且双链表可以使用二分查找使链表的查询效率提高一倍；缺点为在增删节点时比单链表复杂，内存利用低于单链表。</p>
+</blockquote>
+<ul>
+<li>双链表节点定义</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> <span class="hljs-title class_">LinkNode</span>&#123;<br>    Elemtype data;          <span class="hljs-comment">//双链表的数据域</span><br>    <span class="hljs-keyword">struct</span> <span class="hljs-title class_">LinkNode</span> *prior; <span class="hljs-comment">//双链表的前驱指针</span><br>    <span class="hljs-keyword">struct</span> <span class="hljs-title class_">LinkNode</span> *next;  <span class="hljs-comment">//双链表的后驱指针</span><br>&#125; DLinkNode;<br></code></pre></td></tr></table></figure>
+<h3 id="循环链表"><a class="markdownIt-Anchor" href="#循环链表"></a> 循环链表</h3>
+<blockquote>
+<p>作用是循环链表是无须增加存储量，仅对表的链接方式稍作改变，即可使得表处理更加方便灵活，循环链表的尾指针指向头节点。</p>
+<p>循环链表中没有NULL指针。涉及遍历操作时，其终止条件就不再是像非循环链表那样判别p或p-＞next是否为空，而是判别它们是否等于某一指定指针，如头指针或尾指针等。</p>
+<p>在单链表中，从一已知结点出发，只能访问到该结点及其后续结点，无法找到该结点之前的其它结点。而在单循环链表中，从任一结点出发都可访问到表中所有结点，这一优点使某些运算在单循环链表上易于实现。这样他就可以更高效的实现算法， 循环链表，其结构特点链表中最后一个结点的指针域不再是结束标记，而是指向整个链表的第一个结点，从而使链表形成一个环。和单链表相同，循环链表也有带头结点结构和不带头结点结构两种，带头结点的循环单链表实现插入和删除操作较为方便。这样就可以更有效率。</p>
+</blockquote>
+<ul>
+<li>
+<p>循环单链表结构体定义</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> <span class="hljs-title class_">Node</span>&#123;<br>    Elemtype data;<br>    <span class="hljs-keyword">struct</span> <span class="hljs-title class_">Node</span> *next;<br>&#125; CLinkNode;<br></code></pre></td></tr></table></figure>
+<p>循环单链表的插入和删除等与普通链表操作相比，为了操作简便通常将单独对首元节点和空表进行操作</p>
+</li>
+</ul>
+<hr />
+<h2 id="栈"><a class="markdownIt-Anchor" href="#栈"></a> 栈</h2>
+<h3 id="线性栈"><a class="markdownIt-Anchor" href="#线性栈"></a> 线性栈</h3>
+<blockquote>
+<p>线性栈是限定仅在表尾进行删除，增加操作的线性表。表尾端称为栈顶，表的头部称为栈底。当栈顶下标为-1时，栈为空，第一个元素的下标为0，以此类推。由于栈的特殊性质，每次退栈元素为栈顶元素，即遵循后进先出的规则，反序出栈</p>
+</blockquote>
+<ul>
+<li>栈结构体定义</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> <span class="hljs-title class_">Stack</span>&#123;<br>    Elemtype data[Maxsize]; <span class="hljs-comment">//数据域</span><br>    <span class="hljs-type">int</span> top;<span class="hljs-comment">//栈顶下标</span><br>&#125;SqStack;<br></code></pre></td></tr></table></figure>
+<h3 id="链栈"><a class="markdownIt-Anchor" href="#链栈"></a> 链栈</h3>
+<blockquote>
+<p>链栈是采用链式结构实现的栈，通常使用单链表实现，由于链表插入方法有头插法和尾插法，所以链栈的入栈也有两种实现方法，若使用头插法实现，则出栈从开始节点开始出栈，若使用尾插法则从尾部开始出栈。头插法的链栈最为方便，取出数据直接取得首元节点的值即可</p>
+</blockquote>
+<ul>
+<li>链栈节点结构体定义</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> <span class="hljs-title class_">SNode</span>&#123;<br>    Elemtype data;<span class="hljs-comment">//数据域</span><br>    <span class="hljs-keyword">struct</span> <span class="hljs-title class_">SNode</span> *next;<span class="hljs-comment">//指向下一节点的next指针</span><br>&#125;StackNode;<br></code></pre></td></tr></table></figure>
+<hr />
+<h2 id="队列"><a class="markdownIt-Anchor" href="#队列"></a> 队列</h2>
+<h3 id="顺序队列"><a class="markdownIt-Anchor" href="#顺序队列"></a> 顺序队列</h3>
+<blockquote>
+<p>队列是一种特殊的线性表，特殊之处在于它只允许在表的前端进行删除操作，而在表的后端进行插入操作，和栈一样，队列是一种操作受限制的线性表。进行插入操作的端称为队尾，进行删除操作的端称为队头。队列中没有元素时，称为空队列。为了队列判空的方便，会设置头尾两个指针，比如设置队头（尾）指针指向队头（尾）元素，队尾（头）指针指向尾（头）部后（前）一个位置，这样单队头尾指针相等时，即队列为空。普通顺序队列的缺点是会出现假溢出，存储空间利用不佳，通常采用循环队列解决这个问题。</p>
+</blockquote>
+<ul>
+<li>普通顺序队列结构体定义</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span>&#123;<br>    Elemtype data[MaxSize];<span class="hljs-comment">//数据域</span><br>    <span class="hljs-type">int</span> front, rear;<span class="hljs-comment">//定义队头指针和队尾指针</span><br>&#125;SqQueue;<br></code></pre></td></tr></table></figure>
+<h4 id="队列的真假溢出"><a class="markdownIt-Anchor" href="#队列的真假溢出"></a> 队列的真假溢出</h4>
+<ul>
+<li>
+<p>真溢出：给队列分配MaxSize为5，入队列达到6个元素，队列真溢出</p>
+</li>
+<li>
+<p>假溢出：原先下标为0和1的元素出队，队头指针指向队头元素前一位，但此时虽然队列中还有两个空位，此时入队会造成假溢出。这是顺序队列的弊端，需要实现循环队列解决队列的真假溢出。</p>
+<p><img src="C:%5CUsers%5CEcho%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210803005815511.png" srcset="/img/loading.gif" lazyload alt="image-20210803005815511" /></p>
+</li>
+</ul>
+<h4 id="顺序循环队列"><a class="markdownIt-Anchor" href="#顺序循环队列"></a> 顺序循环队列</h4>
+<blockquote>
+<p>循环队列就是将队列存储空间的最后一个位置绕到第一个位置，形成逻辑上的环状空间，供队列循环使用。在循环队列结构中，当存储空间的最后一个位置已被使用而再要进入队运算时，只需要存储空间的第一个位置空闲，便可将元素加入到第一个位置，即将存储空间的第一个位置作为队尾。 [1] 循环队列可以更简单防止伪溢出的发生，但队列大小是固定的。</p>
+<p>在循环队列中，当队列为空时，有front=rear，而当所有队列空间全占满时，也有front=rear。为了区别这两种情况，规定循环队列最多只能有Max Size-1个队列元素，当循环队列中只剩下一个空存储单元时，队列就已经满了。因此，队列判空的条件是front=rear，而队列判满的条件是front=（rear+1)%Max Size。</p>
+</blockquote>
+<ul>
+<li>
+<p>循环队列的结构体定义</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span>&#123;<br>    Elemtype data[Maxsize];<span class="hljs-comment">//数据域</span><br>    <span class="hljs-type">int</span> front,rear;<span class="hljs-comment">//队头指针和队尾指针</span><br>&#125;Queue;<br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="链式队列"><a class="markdownIt-Anchor" href="#链式队列"></a> 链式队列</h3>
+<blockquote>
+<p>链式队列就是使用链式存储结构存储的队列，与顺序队列相比，链式队列不会出现假溢出现象，因为每个节点的出队都会当场销毁该节点。链队结构包含两个节点类型的队列头尾指针</p>
+</blockquote>
+<ul>
+<li>
+<p>链式队列的结构体定义</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> <span class="hljs-title class_">Node</span>&#123;<br>    Elemtype data;<br>    <span class="hljs-keyword">struct</span> <span class="hljs-title class_">Node</span> *next;<br>&#125; CLinNode; <span class="hljs-comment">//节点类型</span><br><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span>&#123;<br>    CLinNode *front;<br>    CLinNode *rear;<br>&#125; CLinQue; <span class="hljs-comment">//队列类型</span><br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="串"><a class="markdownIt-Anchor" href="#串"></a> 串</h2>
+<blockquote>
+<p>串是由零个或多个字符组成的有限序列</p>
+</blockquote>
+<h3 id="1顺序串"><a class="markdownIt-Anchor" href="#1顺序串"></a> 1.顺序串</h3>
+<ul>
+<li>
+<p>非紧缩格式顺序串结构体定义声明</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span>&#123;<br>    <span class="hljs-type">char</span> data[MaxSize];<br>    <span class="hljs-type">int</span> length;<br>&#125;SqString<br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="树"><a class="markdownIt-Anchor" href="#树"></a> 树</h2>
+<h3 id="二叉树"><a class="markdownIt-Anchor" href="#二叉树"></a> 二叉树</h3>
+<blockquote>
+<p>二叉树的递归定义表明二叉树或为空，或是由一个根结点加上两棵分别称为左子树和右子树 的、互不相交的二叉树组成。由千这两棵子树也是二叉树，则由二叉树的定义，它们也可以是空 树。</p>
+</blockquote>
+<h4 id="性质"><a class="markdownIt-Anchor" href="#性质"></a> 性质</h4>
+<ul>
+<li>
+<p>性质1 在二叉树的 第l层上至多有<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mrow><mi>x</mi><mo>−</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">2^{x-1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">x</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span></span></span></span>个结点（<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">i\geq1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.79549em;vertical-align:-0.13597em;"></span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≥</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>)。</p>
+</li>
+<li>
+<p>性质2 深度为K的 二叉树至多有 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mi>k</mi></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2^k-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.932438em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.849108em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>个结点 (<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">k\geq1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83041em;vertical-align:-0.13597em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≥</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>)。</p>
+</li>
+<li>
+<p>性质3 对任何一棵二叉树T, 如果其终端结点数为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>n</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">n_0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>，度为2的结点数为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>n</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">n_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>,则<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>n</mi><mn>0</mn></msub><mo>=</mo><msub><mi>n</mi><mn>2</mn></msub><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n_0=n_2+1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.73333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span></p>
+</li>
+<li>
+<p>性质4 具有 n 个结点的完全二叉树的深度为llog心+ 1</p>
+</li>
+<li>
+<p>性质 5 如果对一棵有 n个结点的完全二叉树（其深度为llog2n」+ 1) 的结点按层序编号（从 第 1 层到第llog2n」+ 1 层， 每层从左到右）， 则对任一结点i(l�i�n), 有 119  120  1数据结构(C语言版）（第2版）I (1)如果i = 1, 则结点l是二叉树的根，无双亲；如果i&gt; 1, 则其双亲PARENTi( )是结 点Lu2」。 ( 2 )如果2i&gt;n, 则结点i无左孩子（结点i为叶子结点）；否则其左孩子LCHILD1)是结点 ( 2儿 (3)如果2门1&gt;n, 则结缸无右孩子；否则其右孩子RCHILDi( )是结点2门l。</p>
+</li>
+</ul>
+<h3 id="满二叉树"><a class="markdownIt-Anchor" href="#满二叉树"></a> 满二叉树</h3>
+<blockquote>
+<p>深度为 K且含有<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mi>k</mi></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2^k-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.932438em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.849108em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>个结点的二叉树。 图所示是一棵深度为3的满二叉树</p>
+</blockquote>
+<p><img src="http://c.biancheng.net/uploads/allimg/190427/09452HG8-1.gif" srcset="/img/loading.gif" lazyload alt="满二叉树" /></p>
+<h3 id="二叉树的存储结构"><a class="markdownIt-Anchor" href="#二叉树的存储结构"></a> 二叉树的存储结构</h3>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/01/13/Kubernetes/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Kubernetes</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/12/03/Visual%20Studio%20Code/">
+                        <span class="hidden-mobile">Visual Studio Code C/C++</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- KaTeX -->
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css" />
+  
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

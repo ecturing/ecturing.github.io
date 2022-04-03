@@ -16,20 +16,20 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Nginx服务器  Nginx是一款轻量级的Web 服务器反向代理服务器及电子邮件（IMAP&#x2F;POP3）代理服务器，在BSD-like 协议下发行。其特点是占有内存少，并发能力强，事实上Nginx的并发能力在同类型的网页服务器中表现较好。   在Docker中安装   拉取Nginx镜像   启动并挂载Nginx的Html,Conf,logs目录到宿主机   需要挂载的目录 -v &#x2F;usr&#x2F;sh">
+    <meta name="description" content="CentOS部署Tomcat应用程序  配置SSH 腾讯云新建密钥并保存私钥，打开SSH远程终端，输入连接地址并选择SSH连接，选择下载的私钥，输入密码进行连接  登录服务器 输入密码进行登录服务器。  安装JDK 在Oracle官网下载JDK安装包，新建一个JDK文件夹，然后上传到服务器并解压 12mkdir jdktar -xzvf jdk-16.0.0.tar.gz 配置java环境变量">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Nginx">
-<meta property="og:url" content="http://example.com/2022/04/03/Nginx/index.html">
+<meta property="og:title" content="CentOS部署Tomcat">
+<meta property="og:url" content="http://example.com/2021/06/14/CentOS%E9%83%A8%E7%BD%B2Tomcat%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/index.html">
 <meta property="og:site_name" content="Blogs">
-<meta property="og:description" content="Nginx服务器  Nginx是一款轻量级的Web 服务器反向代理服务器及电子邮件（IMAP&#x2F;POP3）代理服务器，在BSD-like 协议下发行。其特点是占有内存少，并发能力强，事实上Nginx的并发能力在同类型的网页服务器中表现较好。   在Docker中安装   拉取Nginx镜像   启动并挂载Nginx的Html,Conf,logs目录到宿主机   需要挂载的目录 -v &#x2F;usr&#x2F;sh">
+<meta property="og:description" content="CentOS部署Tomcat应用程序  配置SSH 腾讯云新建密钥并保存私钥，打开SSH远程终端，输入连接地址并选择SSH连接，选择下载的私钥，输入密码进行连接  登录服务器 输入密码进行登录服务器。  安装JDK 在Oracle官网下载JDK安装包，新建一个JDK文件夹，然后上传到服务器并解压 12mkdir jdktar -xzvf jdk-16.0.0.tar.gz 配置java环境变量">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-04-03T07:36:44.000Z">
-<meta property="article:modified_time" content="2022-04-03T07:36:17.420Z">
+<meta property="article:published_time" content="2021-06-14T02:31:54.000Z">
+<meta property="article:modified_time" content="2022-04-03T07:33:58.488Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
   
   
-  <title>Nginx - Blogs</title>
+  <title>CentOS部署Tomcat - Blogs</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -179,7 +179,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Nginx">
+            <span class="h2" id="subtitle" title="CentOS部署Tomcat">
               
             </span>
 
@@ -189,8 +189,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-04-03 15:36" pubdate>
-        2022年4月3日 下午
+      <time datetime="2021-06-14 10:31" pubdate>
+        2021年6月14日 上午
       </time>
     </span>
   
@@ -200,7 +200,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      347 字
+      742 字
     </span>
   
 
@@ -209,7 +209,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      3 分钟
+      7 分钟
     </span>
   
 
@@ -238,38 +238,39 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Nginx</h1>
+            <h1 style="display: none">CentOS部署Tomcat</h1>
             
             <div class="markdown-body">
-              <h1 id="nginx服务器"><a class="markdownIt-Anchor" href="#nginx服务器"></a> Nginx服务器</h1>
-<blockquote>
-<p>Nginx是一款轻量级的Web 服务器反向代理服务器及电子邮件（IMAP/POP3）代理服务器，在BSD-like 协议下发行。其特点是占有内存少，并发能力强，事实上Nginx的并发能力在同类型的网页服务器中表现较好。</p>
-</blockquote>
-<h2 id="在docker中安装"><a class="markdownIt-Anchor" href="#在docker中安装"></a> 在Docker中安装</h2>
-<ul>
-<li>
-<p>拉取Nginx镜像</p>
-</li>
-<li>
-<p>启动并挂载Nginx的Html,Conf,logs目录到宿主机</p>
-</li>
-<li>
-<div class="code-wrapper"><pre class="highlight"><code class="bash">需要挂载的目录
--v /usr/share/nginx/html(服务器根目录)
--v /etc/nginx/nginx.conf(配置文件目录)
--v /etc/nginx/conf.d
--v /var/<span class="hljs-built_in">log</span>/nginx(日志目录)
-</code></pre></div>
-</li>
-</ul>
-<h2 id="反向代理"><a class="markdownIt-Anchor" href="#反向代理"></a> 反向代理</h2>
-<blockquote>
-<ol>
-<li>保障应用服务器的安全（增加一层代理，可以屏蔽危险攻击，更方便的控制权限）</li>
-<li>实现负载均衡（稍等~下面会讲）</li>
-<li>实现跨域（号称是最简单的跨域方式）</li>
-</ol>
-</blockquote>
+              <h1 id="centos部署tomcat应用程序"><a class="markdownIt-Anchor" href="#centos部署tomcat应用程序"></a> CentOS部署Tomcat应用程序</h1>
+<h2 id="配置ssh"><a class="markdownIt-Anchor" href="#配置ssh"></a> 配置SSH</h2>
+<p>腾讯云新建密钥并保存私钥，打开SSH远程终端，输入连接地址并选择SSH连接，选择下载的私钥，输入密码进行连接</p>
+<h2 id="登录服务器"><a class="markdownIt-Anchor" href="#登录服务器"></a> 登录服务器</h2>
+<p>输入密码进行登录服务器。</p>
+<h2 id="安装jdk"><a class="markdownIt-Anchor" href="#安装jdk"></a> 安装JDK</h2>
+<p>在Oracle官网下载JDK安装包，新建一个JDK文件夹，然后上传到服务器并解压</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><pre><code class="hljs shell">mkdir jdk<br>tar -xzvf jdk-16.0.0.tar.gz<br></code></pre></td></tr></table></figure>
+<p>配置java环境变量</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">vi /etc/profile<br></code></pre></td></tr></table></figure>
+<p>进入vim编辑器后加入以下代码</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell">export JAVA_HOME=/root/tomcat/jdk/jdk-16.0.2<br>export JRE_HOME=$&#123;JAVA_HOME&#125;<br>export CLASSPATH=.:$JAVA_HOME/lib:$JRE_HOME/lib<br>export PATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin<br>export JAVA_HOME CLASS_PATH PATH JRE_HOME<br></code></pre></td></tr></table></figure>
+<p>然后输入以下代码使环境变量生效</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">source /etc/profile<br></code></pre></td></tr></table></figure>
+<p>安装完成后输入java检测是否安装成功</p>
+<h2 id="安装tomcat"><a class="markdownIt-Anchor" href="#安装tomcat"></a> 安装Tomcat</h2>
+<p>从阿帕奇官网下载tar.gz后缀的压缩包，然后新建一个文件夹</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">mkdir tomcatdir<br></code></pre></td></tr></table></figure>
+<p>然后上传到服务器的tomcat文件夹，然后通过命令解压tar.gz压缩包</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">tar -xzvf tomcat.tar.gz<br></code></pre></td></tr></table></figure>
+<h2 id="启动tomcat"><a class="markdownIt-Anchor" href="#启动tomcat"></a> 启动Tomcat</h2>
+<p>使用cd命令进入tomcat的安装目录的bin目录下</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">cd tomcatdir/tomcat/bin<br></code></pre></td></tr></table></figure>
+<p>然后使用命令启动tomcat</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sh startup.sh<br></code></pre></td></tr></table></figure>
+<p>tomcat的关闭命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sh shutdown.sh<br></code></pre></td></tr></table></figure>
+<h2 id="引入包"><a class="markdownIt-Anchor" href="#引入包"></a> 引入包</h2>
+<p>在Tomcat的lib目录内引入所有开发导入包和数据库连接的jar包</p>
+<h2 id="配置数据库"><a class="markdownIt-Anchor" href="#配置数据库"></a> 配置数据库</h2>
 
             </div>
             <hr>
@@ -290,15 +291,15 @@
                   <article class="post-prev col-6">
                     
                     
+                      <a href="/2021/11/03/Java%20Thread/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Java多线程</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
                   </article>
                   <article class="post-next col-6">
                     
-                    
-                      <a href="/2022/03/15/Docker/">
-                        <span class="hidden-mobile">Docker</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
                     
                   </article>
                 </div>
