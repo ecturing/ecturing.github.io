@@ -248,26 +248,26 @@
 <p>输入密码进行登录服务器。</p>
 <h2 id="安装jdk"><a class="markdownIt-Anchor" href="#安装jdk"></a> 安装JDK</h2>
 <p>在Oracle官网下载JDK安装包，新建一个JDK文件夹，然后上传到服务器并解压</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><pre><code class="hljs shell">mkdir jdk<br>tar -xzvf jdk-16.0.0.tar.gz<br></code></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell">mkdir jdk<br>tar -xzvf jdk-16.0.0.tar.gz<br></code></pre></div></td></tr></table></figure>
 <p>配置java环境变量</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">vi /etc/profile<br></code></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell">vi /etc/profile<br></code></pre></div></td></tr></table></figure>
 <p>进入vim编辑器后加入以下代码</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell">export JAVA_HOME=/root/tomcat/jdk/jdk-16.0.2<br>export JRE_HOME=$&#123;JAVA_HOME&#125;<br>export CLASSPATH=.:$JAVA_HOME/lib:$JRE_HOME/lib<br>export PATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin<br>export JAVA_HOME CLASS_PATH PATH JRE_HOME<br></code></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell">export JAVA_HOME=/root/tomcat/jdk/jdk-16.0.2<br>export JRE_HOME=$&#123;JAVA_HOME&#125;<br>export CLASSPATH=.:$JAVA_HOME/lib:$JRE_HOME/lib<br>export PATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin<br>export JAVA_HOME CLASS_PATH PATH JRE_HOME<br></code></pre></div></td></tr></table></figure>
 <p>然后输入以下代码使环境变量生效</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">source /etc/profile<br></code></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell">source /etc/profile<br></code></pre></div></td></tr></table></figure>
 <p>安装完成后输入java检测是否安装成功</p>
 <h2 id="安装tomcat"><a class="markdownIt-Anchor" href="#安装tomcat"></a> 安装Tomcat</h2>
 <p>从阿帕奇官网下载tar.gz后缀的压缩包，然后新建一个文件夹</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">mkdir tomcatdir<br></code></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell">mkdir tomcatdir<br></code></pre></div></td></tr></table></figure>
 <p>然后上传到服务器的tomcat文件夹，然后通过命令解压tar.gz压缩包</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">tar -xzvf tomcat.tar.gz<br></code></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell">tar -xzvf tomcat.tar.gz<br></code></pre></div></td></tr></table></figure>
 <h2 id="启动tomcat"><a class="markdownIt-Anchor" href="#启动tomcat"></a> 启动Tomcat</h2>
 <p>使用cd命令进入tomcat的安装目录的bin目录下</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">cd tomcatdir/tomcat/bin<br></code></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell">cd tomcatdir/tomcat/bin<br></code></pre></div></td></tr></table></figure>
 <p>然后使用命令启动tomcat</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sh startup.sh<br></code></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell">sh startup.sh<br></code></pre></div></td></tr></table></figure>
 <p>tomcat的关闭命令</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sh shutdown.sh<br></code></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell">sh shutdown.sh<br></code></pre></div></td></tr></table></figure>
 <h2 id="引入包"><a class="markdownIt-Anchor" href="#引入包"></a> 引入包</h2>
 <p>在Tomcat的lib目录内引入所有开发导入包和数据库连接的jar包</p>
 <h2 id="配置数据库"><a class="markdownIt-Anchor" href="#配置数据库"></a> 配置数据库</h2>

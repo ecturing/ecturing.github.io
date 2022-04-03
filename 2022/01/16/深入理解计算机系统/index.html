@@ -23,12 +23,12 @@
 <meta property="og:site_name" content="Blogs">
 <meta property="og:description" content="第一章计算机系统漫游  第一部分 程序结构与执行  第二章 信息的表示与处理  二进制  十进制 十六进制互转 低转高：用短除法反复短除高进制取余 高转低：用高进制的幂乘以每个高进制数字  字数据大小 每台计算机都有字长，指明指针数据的标称大小(normal size)，虚拟地址以字来编码，对于ω\omegaω位的机器虚拟地址范围为：0~2ω−12^{\omega}-12ω−1,程序最多访问2ω">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="e:/图床仓库/compile.png">
+<meta property="og:image" content="https://github.com/ecturing/gitPages_images/blob/main/compile.png?raw=true">
 <meta property="article:published_time" content="2022-01-16T04:24:34.000Z">
-<meta property="article:modified_time" content="2022-04-03T08:21:35.901Z">
+<meta property="article:modified_time" content="2022-04-03T08:34:46.090Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="e:/图床仓库/compile.png">
+<meta name="twitter:image" content="https://github.com/ecturing/gitPages_images/blob/main/compile.png?raw=true">
   
   
   <title>深入理解计算机系统 - Blogs</title>
@@ -368,7 +368,7 @@ u-2^{u}&amp;u&gt;Tmax_{\omega}
 <code>movl</code>:传送双字<br />
 <code>movq</code>:传送四字</p>
 <h4 id="x86_64寄存器图"><a class="markdownIt-Anchor" href="#x86_64寄存器图"></a> x86_64寄存器图</h4>
-<img src="E:\图床仓库\compile.png" srcset="/img/loading.gif" lazyload alt="compile" style="zoom: 67%;" />
+<p><img src="https://github.com/ecturing/gitPages_images/blob/main/compile.png?raw=true" srcset="/img/loading.gif" lazyload alt="" /></p>
 <h3 id="操作数指示符"><a class="markdownIt-Anchor" href="#操作数指示符"></a> 操作数指示符</h3>
 <p><code>立即数</code>：用来表示常数，在ATT格式汇编，立即数的书写方法为”$“后面跟着一个用标准C表示法的整数。不同的指令允许的立即数范围也不同，汇编器会自动选择最紧凑的方式进行编码</p>
 <p><code>寄存器</code>：它表示某个寄存器的内容，16个寄存器的低位1字节，2字节，4字节或8字节中的一个作为操作数，这些字节数分别对应于8位，16位，32位或64位，我们用符号<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>r</mi><mi>a</mi></msub></mrow><annotation encoding="application/x-tex">r_a</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">a</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>表示任意寄存器，用<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>R</mi><mo stretchy="false">[</mo><msub><mi>r</mi><mi>a</mi></msub><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">R[r_a]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mopen">[</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">a</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">]</span></span></span></span>来表示他的值，这是将寄存器集合看成一个数组R，用寄存器标识符做索引</p>
@@ -483,16 +483,16 @@ u-2^{u}&amp;u&gt;Tmax_{\omega}
 </tbody>
 </table>
 <p>指令pushq %rdp等效于以下指令</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><pre><code class="hljs assembly">subq $8,%rsp<br>movq %rbp,(%rsp)<br></code></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs assembly">subq $8,%rsp<br>movq %rbp,(%rsp)<br></code></pre></div></td></tr></table></figure>
 <p>指令popq %rax等效以下指令</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs assembly">movq (%rsp),%rax<br>addq $8,%rsp<br></code></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs assembly">movq (%rsp),%rax<br>addq $8,%rsp<br></code></pre></div></td></tr></table></figure>
 <h3 id="加载有效地址"><a class="markdownIt-Anchor" href="#加载有效地址"></a> 加载有效地址</h3>
 <blockquote>
 <p>加载有效地址的指令形式从内存读数据到寄存器，但实际上根本没有引用内存，他的第一个操作数看上去是一个内存引用，但该只看并不是从指定位置读入数据，而是将计算出有效地址写入到目的操作数，mov传送的是地址内容，lea传送的是地址</p>
 </blockquote>
 <h4 id="使用leamov实现c语言指针"><a class="markdownIt-Anchor" href="#使用leamov实现c语言指针"></a> 使用lea+mov实现C语言指针</h4>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">point</span><span class="hljs-params">()</span>&#123;<br>    <span class="hljs-type">int</span> a=<span class="hljs-number">8</span>;<br>    <span class="hljs-type">int</span> *p=&amp;a;<br>&#125;<br></code></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs assembly">point():<br>        pushq   %rbp<br>        movq    %rsp, %rbp<br>        movl    $8, -12(%rbp)<br>        leaq    -12(%rbp), %rax<br>        movq    %rax, -8(%rbp)<br>        nop<br>        popq    %rbp<br>        ret<br></code></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">point</span><span class="hljs-params">()</span>&#123;<br>    <span class="hljs-type">int</span> a=<span class="hljs-number">8</span>;<br>    <span class="hljs-type">int</span> *p=&amp;a;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs assembly">point():<br>        pushq   %rbp<br>        movq    %rsp, %rbp<br>        movl    $8, -12(%rbp)<br>        leaq    -12(%rbp), %rax<br>        movq    %rax, -8(%rbp)<br>        nop<br>        popq    %rbp<br>        ret<br></code></pre></div></td></tr></table></figure>
 <p>5-6行，lea操作将<code>-12(%rbp)</code>(即a的内存地址)放入rax寄存器，然后将rax寄存器内存储的地址放到内存中a的地址偏移4字节处</p>
 <h3 id="一元和二元操作"><a class="markdownIt-Anchor" href="#一元和二元操作"></a> 一元和二元操作</h3>
 <table>
