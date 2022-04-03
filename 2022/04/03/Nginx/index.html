@@ -24,7 +24,7 @@
 <meta property="og:description" content="Nginx服务器  Nginx是一款轻量级的Web 服务器反向代理服务器及电子邮件（IMAP&#x2F;POP3）代理服务器，在BSD-like 协议下发行。其特点是占有内存少，并发能力强，事实上Nginx的并发能力在同类型的网页服务器中表现较好。   在Docker中安装   拉取Nginx镜像   启动并挂载Nginx的Html,Conf,logs目录到宿主机   需要挂载的目录 -v &#x2F;usr&#x2F;sh">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-04-03T07:36:44.000Z">
-<meta property="article:modified_time" content="2022-04-03T07:36:17.420Z">
+<meta property="article:modified_time" content="2022-04-03T10:28:53.192Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -288,12 +288,12 @@
 <p>启动并挂载Nginx的Html,Conf,logs目录到宿主机</p>
 </li>
 <li>
-<div class="hljs code-wrapper"><pre class="highlight"><code class="bash">需要挂载的目录
+<pre class="highlight"><code class="shell">需要挂载的目录
 -v /usr/share/nginx/html(服务器根目录)
 -v /etc/nginx/nginx.conf(配置文件目录)
 -v /etc/nginx/conf.d
--v /var/<span class="hljs-built_in">log</span>/nginx(日志目录)
-</code></pre></div>
+-v /var/log/nginx(日志目录)
+</code></pre>
 </li>
 </ul>
 <h2 id="反向代理"><a class="markdownIt-Anchor" href="#反向代理"></a> 反向代理</h2>
