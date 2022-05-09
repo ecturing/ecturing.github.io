@@ -4,6 +4,19 @@
   
   
   <entry>
+    <title>cron</title>
+    <link href="/2022/04/05/cron/"/>
+    <url>/2022/04/05/cron/</url>
+    
+    <content type="html"><![CDATA[<h1 id="cron"><a class="markdownIt-Anchor" href="#cron"></a> Cron</h1><blockquote><p>Cron为github开源的go定时器软件</p></blockquote><h2 id="项目地址"><a class="markdownIt-Anchor" href="#项目地址"></a> 项目地址</h2><h2 id="项目使用"><a class="markdownIt-Anchor" href="#项目使用"></a> 项目使用</h2>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Nginx</title>
     <link href="/2022/04/03/Nginx/"/>
     <url>/2022/04/03/Nginx/</url>
@@ -99,7 +112,7 @@
     <link href="/2021/12/03/Visual%20Studio%20Code/"/>
     <url>/2021/12/03/Visual%20Studio%20Code/</url>
     
-    <content type="html"><![CDATA[<h1 id="visual-studio-code-cc配置指南"><a class="markdownIt-Anchor" href="#visual-studio-code-cc配置指南"></a> Visual Studio Code C/C++配置指南</h1><h2 id="一准备工作"><a class="markdownIt-Anchor" href="#一准备工作"></a> 一.准备工作</h2><h3 id="1安装mingw编译器"><a class="markdownIt-Anchor" href="#1安装mingw编译器"></a> 1.安装MinGW编译器</h3><p>在官网上下载MinGW编译器，并进行环境变量的配置。</p><h3 id="2安装visual-studio-code的cc插件"><a class="markdownIt-Anchor" href="#2安装visual-studio-code的cc插件"></a> 2.安装Visual Studio Code的C/C++插件</h3><p>直接在Visual Studio Code搜索C/C++ Extension Pack(C/C++扩展包)安装即可</p><h2 id="二visual-studio-code配置工作"><a class="markdownIt-Anchor" href="#二visual-studio-code配置工作"></a> 二.Visual Studio Code配置工作</h2><blockquote><p>切记在配置运行环境时，请始终保持Visual Studio Code将C/C++源文件在编辑器里处于编辑状态，这样Visual Studio Code会根据打开的源文件类型智能推荐配置工作和配置文件中编译程序路径的自动补全。</p></blockquote><h3 id="1创建cc源文件"><a class="markdownIt-Anchor" href="#1创建cc源文件"></a> 1.创建C/C++源文件</h3><p>创建任意C/C++源文件，并键入HelloWorld代码</p><h3 id="2配置生成任务"><a class="markdownIt-Anchor" href="#2配置生成任务"></a> 2.配置生成任务</h3><p>点击终端-&gt;配置默认生成任务，然后根据编译器提供的选择生成程序，在MinGW中C使用GCC,C<ins>使用G</ins></p><blockquote><p>点击终端，运行生成任务(Ctrl+F9)，将C/C++文件编译为可执行文件，若有错误根据报错进行修改。必须先执行生成任务后，才可进行调试！</p></blockquote><h3 id="3配置调试文件"><a class="markdownIt-Anchor" href="#3配置调试文件"></a> 3.配置调试文件</h3><p>保持C/C<ins>源文件处于编辑状态，点击运行-&gt;添加配置，选择C/C</ins>(GDB/LLDB)，然后选择调试程序(C选择GCC,C<ins>选择G</ins>),然后Visual Studio Code会自动开启调试。</p>]]></content>
+    <content type="html"><![CDATA[<h1 id="visual-studio-code-ccpp配置指南"><a class="markdownIt-Anchor" href="#visual-studio-code-ccpp配置指南"></a> Visual Studio Code C/CPP配置指南</h1><h2 id="一准备工作"><a class="markdownIt-Anchor" href="#一准备工作"></a> 一.准备工作</h2><h3 id="1安装mingw编译器"><a class="markdownIt-Anchor" href="#1安装mingw编译器"></a> 1.安装MinGW编译器</h3><p>在官网上下载MinGW编译器，并进行环境变量的配置。</p><h3 id="2安装visual-studio-code的ccpp插件"><a class="markdownIt-Anchor" href="#2安装visual-studio-code的ccpp插件"></a> 2.安装Visual Studio Code的C/CPP插件</h3><p>直接在Visual Studio Code搜索C/C++ Extension Pack(C/CPP扩展包)安装即可</p><h2 id="二visual-studio-code配置工作"><a class="markdownIt-Anchor" href="#二visual-studio-code配置工作"></a> 二.Visual Studio Code配置工作</h2><blockquote><p>切记在配置运行环境时，请始终保持Visual Studio Code将C/CPP源文件在编辑器里处于编辑状态，这样Visual Studio Code会根据打开的源文件类型智能推荐配置工作和配置文件中编译程序路径的自动补全。</p></blockquote><h3 id="1创建ccpp源文件"><a class="markdownIt-Anchor" href="#1创建ccpp源文件"></a> 1.创建C/CPP源文件</h3><p>创建任意C/CPP源文件，并键入HelloWorld代码</p><h3 id="2配置生成任务"><a class="markdownIt-Anchor" href="#2配置生成任务"></a> 2.配置生成任务</h3><p>点击终端-&gt;配置默认生成任务，然后根据编译器提供的选择生成程序，在MinGW中C使用GCC,Cpp使用g++</p><blockquote><p>点击终端，运行生成任务(Ctrl+F9)，将C/C++文件编译为可执行文件，若有错误根据报错进行修改。必须先执行生成任务后，才可进行调试！</p></blockquote><h3 id="3配置调试文件"><a class="markdownIt-Anchor" href="#3配置调试文件"></a> 3.配置调试文件</h3><p>保持C/Cpp源文件处于编辑状态，点击运行-&gt;添加配置，选择C/C++(GDB/LLDB)，然后选择调试程序(C选择GCC,C++选择G++),然后Visual Studio Code会自动开启调试。</p>]]></content>
     
     
     

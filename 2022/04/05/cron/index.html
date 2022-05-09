@@ -16,20 +16,20 @@
   <meta name="author" content="Ecturing">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Visual Studio Code C&#x2F;CPP配置指南  一.准备工作  1.安装MinGW编译器 在官网上下载MinGW编译器，并进行环境变量的配置。  2.安装Visual Studio Code的C&#x2F;CPP插件 直接在Visual Studio Code搜索C&#x2F;C++ Extension Pack(C&#x2F;CPP扩展包)安装即可  二.Visual Studio Code配置工作  切记在配">
+    <meta name="description" content="Cron  Cron为github开源的go定时器软件   项目地址  项目使用">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Visual Studio Code C&#x2F;C++">
-<meta property="og:url" content="http://ecturing.github.io/2021/12/03/Visual%20Studio%20Code/index.html">
+<meta property="og:title" content="cron">
+<meta property="og:url" content="http://ecturing.github.io/2022/04/05/cron/index.html">
 <meta property="og:site_name" content="Blogs">
-<meta property="og:description" content="Visual Studio Code C&#x2F;CPP配置指南  一.准备工作  1.安装MinGW编译器 在官网上下载MinGW编译器，并进行环境变量的配置。  2.安装Visual Studio Code的C&#x2F;CPP插件 直接在Visual Studio Code搜索C&#x2F;C++ Extension Pack(C&#x2F;CPP扩展包)安装即可  二.Visual Studio Code配置工作  切记在配">
+<meta property="og:description" content="Cron  Cron为github开源的go定时器软件   项目地址  项目使用">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-12-03T03:20:09.000Z">
-<meta property="article:modified_time" content="2022-05-09T07:33:17.530Z">
+<meta property="article:published_time" content="2022-04-05T13:19:15.000Z">
+<meta property="article:modified_time" content="2022-04-05T13:20:50.366Z">
 <meta property="article:author" content="Ecturing">
 <meta name="twitter:card" content="summary_large_image">
   
   
-  <title>Visual Studio Code C/C++ - Blogs</title>
+  <title>cron - Blogs</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -194,7 +194,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Visual Studio Code C/C++"></span>
+            <span id="subtitle" data-typed-text="cron"></span>
           
         </div>
 
@@ -210,8 +210,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2021-12-03 11:20" pubdate>
-          2021年12月3日 上午
+        <time datetime="2022-04-05 21:19" pubdate>
+          2022年4月5日 晚上
         </time>
       </span>
     
@@ -222,7 +222,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          563 字
+          33 字
         
       </span>
     
@@ -233,7 +233,7 @@
         
         
         
-          5 分钟
+          1 分钟
         
       </span>
     
@@ -271,29 +271,16 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Visual Studio Code C/C++</h1>
+            <h1 style="display: none">cron</h1>
             
             <div class="markdown-body">
               
-              <h1 id="visual-studio-code-ccpp配置指南"><a class="markdownIt-Anchor" href="#visual-studio-code-ccpp配置指南"></a> Visual Studio Code C/CPP配置指南</h1>
-<h2 id="一准备工作"><a class="markdownIt-Anchor" href="#一准备工作"></a> 一.准备工作</h2>
-<h3 id="1安装mingw编译器"><a class="markdownIt-Anchor" href="#1安装mingw编译器"></a> 1.安装MinGW编译器</h3>
-<p>在官网上下载MinGW编译器，并进行环境变量的配置。</p>
-<h3 id="2安装visual-studio-code的ccpp插件"><a class="markdownIt-Anchor" href="#2安装visual-studio-code的ccpp插件"></a> 2.安装Visual Studio Code的C/CPP插件</h3>
-<p>直接在Visual Studio Code搜索C/C++ Extension Pack(C/CPP扩展包)安装即可</p>
-<h2 id="二visual-studio-code配置工作"><a class="markdownIt-Anchor" href="#二visual-studio-code配置工作"></a> 二.Visual Studio Code配置工作</h2>
+              <h1 id="cron"><a class="markdownIt-Anchor" href="#cron"></a> Cron</h1>
 <blockquote>
-<p>切记在配置运行环境时，请始终保持Visual Studio Code将C/CPP源文件在编辑器里处于编辑状态，这样Visual Studio Code会根据打开的源文件类型智能推荐配置工作和配置文件中编译程序路径的自动补全。</p>
+<p>Cron为github开源的go定时器软件</p>
 </blockquote>
-<h3 id="1创建ccpp源文件"><a class="markdownIt-Anchor" href="#1创建ccpp源文件"></a> 1.创建C/CPP源文件</h3>
-<p>创建任意C/CPP源文件，并键入HelloWorld代码</p>
-<h3 id="2配置生成任务"><a class="markdownIt-Anchor" href="#2配置生成任务"></a> 2.配置生成任务</h3>
-<p>点击终端-&gt;配置默认生成任务，然后根据编译器提供的选择生成程序，在MinGW中C使用GCC,Cpp使用g++</p>
-<blockquote>
-<p>点击终端，运行生成任务(Ctrl+F9)，将C/C++文件编译为可执行文件，若有错误根据报错进行修改。必须先执行生成任务后，才可进行调试！</p>
-</blockquote>
-<h3 id="3配置调试文件"><a class="markdownIt-Anchor" href="#3配置调试文件"></a> 3.配置调试文件</h3>
-<p>保持C/Cpp源文件处于编辑状态，点击运行-&gt;添加配置，选择C/C++(GDB/LLDB)，然后选择调试程序(C选择GCC,C++选择G++),然后Visual Studio Code会自动开启调试。</p>
+<h2 id="项目地址"><a class="markdownIt-Anchor" href="#项目地址"></a> 项目地址</h2>
+<h2 id="项目使用"><a class="markdownIt-Anchor" href="#项目使用"></a> 项目使用</h2>
 
               
             </div>
@@ -310,8 +297,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Visual Studio Code C/C++</div>
-      <div>http://ecturing.github.io/2021/12/03/Visual Studio Code/</div>
+      <div>cron</div>
+      <div>http://ecturing.github.io/2022/04/05/cron/</div>
     </div>
     <div class="license-meta">
       
@@ -323,7 +310,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2021年12月3日</div>
+          <div>2022年4月5日</div>
         </div>
       
       
@@ -353,18 +340,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/12/13/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" title="数据结构">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">数据结构</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/11/06/SpringBoot/" title="SpringBoot">
-                        <span class="hidden-mobile">SpringBoot</span>
+                      <a href="/2022/04/03/Nginx/" title="Nginx">
+                        <span class="hidden-mobile">Nginx</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
