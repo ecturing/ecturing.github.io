@@ -1,5 +1,5 @@
 ---
-title: ：Linux端Clash
+title: Linux端Clash
 date: 2023-07-15 13:02:05
 categories:
 - Linux
