@@ -27,7 +27,7 @@ params:
   disableThemeToggle: false
 
   ShowReadingTime: true
-  ShowShareButtons: true
+  ShowShareButtons: false
   ShowPostNavLinks: true
   ShowBreadCrumbs: true
   ShowCodeCopyButtons: true
@@ -58,23 +58,23 @@ params:
 
   # profile-mode
   profileMode:
-    enabled: false # needs to be explicitly set
-    title: ExampleSite
-    subtitle: "This is subtitle"
-    imageUrl: "<img location>"
+    enabled: true # needs to be explicitly set
+    title: Ecturing`s Blog
+    subtitle: "Ecturing的博客站"
+    imageUrl: "https://avatars.githubusercontent.com/u/42050852?v=4"
     imageWidth: 120
     imageHeight: 120
     imageTitle: my image
     buttons:
-      - name: Posts
+      - name: 文章
         url: posts
-      - name: Tags
+      - name: 标签
         url: tags
 
   # home-info mode
   homeInfoParams:
-    Title: "你好 \U0001F44B"
-    Content: Welcome to my blog
+    Title: "Ecturing \U0001F44B"
+    Content: 欢迎来到我的博客站
 
   socialIcons:
     - name: twitter
