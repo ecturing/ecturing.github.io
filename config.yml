@@ -67,7 +67,7 @@ params:
     imageTitle: my image
     buttons:
       - name: 文章
-        url: posts
+        url: post
       - name: 标签
         url: tags
 
