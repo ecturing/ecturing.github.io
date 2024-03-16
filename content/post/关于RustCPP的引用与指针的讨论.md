@@ -1,6 +1,6 @@
 ---
 title: 关于Rust引用与指针的讨论
-date: 2023-07-3 17:22:41
+date: 2023-07-03 17:22:41
 categories:
 - C/C++
 - Rust
