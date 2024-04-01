@@ -122,6 +122,14 @@ menu:
       name: GitHub
       url: https://github.com/ecturing
       weight: 30
+    - identifier: about
+      name: 关于
+      url: /about/
+      weight: 50
+    - identifier: 搜索
+      name: 搜索
+      url: search/
+      weight: 40
 # Read: https://github.com/adityatelange/hugo-PaperMod/wikei/FAQs#using-hugossyntax-highlighter-chroma
 pygmentsUseClasses: true
 markup:
