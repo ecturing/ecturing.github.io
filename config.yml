@@ -1,4 +1,4 @@
-baseRL: "https://ecturing.github.io/"
+baseURL: "https://ecturing.github.io/"
 title: Ecturing's Blogs
 paginate: 5
 theme: PaperMod
@@ -122,10 +122,10 @@ menu:
       name: GitHub
       url: https://github.com/ecturing
       weight: 30
-    - identifier: about
-      name: 关于
-      url: /about/
-      weight: 50
+    # - identifier: about
+    #   name: 关于
+    #   url: /about/
+    #   weight: 50
     # - identifier: 搜索
     #   name: 搜索
     #   url: search/
@@ -135,7 +135,7 @@ pygmentsUseClasses: true
 markup:
   highlight:
     codeFences: true
-    guessSyntax: false
+    guessSyntax: true
     hl_Lines: ""
     lineNoStart: 1
     lineNos: true
