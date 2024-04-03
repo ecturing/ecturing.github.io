@@ -49,8 +49,8 @@ params:
     
   asset:
     favicon: "/assets/favicon.ico"
-    favicon16x16: "/assets/16.ico"
-    favicon32x32: "/assets/32.ico"
+    favicon16x16: "/assets/favicon-16x16.png"
+    favicon32x32: "/assets/favicon-16x16.png"
     apple_touch_icon: "/assets/favicon.ico"
     safari_pinned_tab: "/assets/favicon.ico"
   label:
@@ -125,7 +125,7 @@ menu:
       url: https://github.com/ecturing
       weight: 30
     - identifier: archives
-      name: 归档
+      name: 时间线
       url: /archives/
       weight: 10
     # - identifier: 搜索
