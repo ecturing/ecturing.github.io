@@ -48,11 +48,11 @@ params:
     # disableFingerprinting: true
     
   asset:
-    favicon: "assets/favicon.ico"
-    favicon16x16: "assets/16.ico"
-    favicon32x32: "assets/32.ico"
-    apple_touch_icon: "assets/favicon.ico"
-    safari_pinned_tab: "assets/favicon.ico"
+    favicon: "/assets/favicon.ico"
+    favicon16x16: "/assets/16.ico"
+    favicon32x32: "/assets/32.ico"
+    apple_touch_icon: "/assets/favicon.ico"
+    safari_pinned_tab: "/assets/favicon.ico"
   label:
     text: "Home"
     icon: /apple-touch-icon.png
