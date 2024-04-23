@@ -208,7 +208,7 @@ ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/WebChat-0.
 
 ## Docker远程配置
 
-docker官方提供了以TLS证书实现的安全加密隧道连接的教程，配置方法如下(操作环境为Linux)
+对于经常使用云服务设备或远程开发的人员来说，常常需要远程操控Docker，如使用IDEA进行开发和打包后上传到服务器进行运行，对于内网环境来说直连安全隐患较低，但是对于公网环境的设备直接暴露Docker操作端口可导致被入侵，极其容易被扫描后提权入侵宿主机，docker官方提供了以TLS证书实现的安全加密隧道连接的教程，配置方法如下(操作环境为Linux)
 
 ### 使用OpenSSL创建签名文件
 
