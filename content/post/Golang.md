@@ -237,94 +237,6 @@ func main() {
 0 1 2 ha ha 100 100 7 8
 ```
 
-### 条件控制
-
-1. if语句
-
-   ```go
-   if condition{
-   	//code
-   }else{
-       //code
-   }
-   ```
-
-   ```go
-   package main
-   
-   import "fmt"
-   
-   func main() {
-      var a int = 100;
-      if a < 20 {
-          fmt.Printf("a 小于 20\n" );
-      } else {
-          fmt.Printf("a 不小于 20\n" );
-      }
-      fmt.Printf("a 的值为 : %d\n", a);
-   }
-   ```
-
-2. switch语句
-
-   ```go
-   switch var1 {
-       case val1:
-           ...
-       case val2:
-           ...
-       default:
-           ...
-   }
-   ```
-
-   ```go
-   package main
-   
-   import "fmt"
-   
-   func main() {
-      var grade string = "B"
-      var marks int = 90
-   
-      switch marks {
-         case 90: grade = "A"
-         case 80: grade = "B"
-         case 50,60,70 : grade = "C"
-         default: grade = "D"  
-      }
-      switch {
-         case grade == "A" :
-            fmt.Printf("优秀!\n" )    
-         case grade == "B", grade == "C" :
-            fmt.Printf("良好\n" )      
-         case grade == "D" :
-            fmt.Printf("及格\n" )      
-         case grade == "F":
-            fmt.Printf("不及格\n" )
-         default:
-            fmt.Printf("差\n" );
-      }
-      fmt.Printf("你的等级是 %s\n", grade );      
-   }
-   ```
-
-   type Switch
-   switch 语句还可以被用于 type-switch 来判断某个 interface 变量中实际存储的变量类型。
-
-   ```go
-   switch x.(type){
-       case type:
-          statement(s);      
-       case type:
-          statement(s); 
-       /* 你可以定义任意个数的case */
-       default: /* 可选 */
-          statement(s);
-   }
-   ```
-
-   不同case不需要break分离马，默认执行一个，执行多个case使用fallthrough关键字
 
 ### 循环控制
 
@@ -422,6 +334,8 @@ func callBack(x int) int {
     return x
 }
 ```
+闭包
+闭包是一种函数包含外部变量作用域的变量引用的特性。闭包由于会依赖于其他变量作用域的数据，可能会发生内存泄漏，使用时需注意。
 
 ###  数组
 
@@ -664,6 +578,9 @@ map_variable := make(map[key_data_type]value_data_type)
 ```
 
 ###  接口
+接口本身有很多特性，接口和变量在初始化上非常类型，但是接口和变量有很大区别，最常见的就是error接口，接口有两个属性，一是类型数据，二是值。所以比如把普通类型变量如int a=4，那么转换为接口类型就是{int,4}。对于errors接口，不允许存在比如 var err error=nil。然后把err和nil对比，会发现不一样。因为err={error,nil}。
+
+对于面向对象的接口设计，对于实现的结构体的值接收器可以为值类型和指针类型
 
 定义
 
@@ -694,5 +611,22 @@ func (struct_name_variable struct_name) method_namen() [return_type] {
 ### 并发
 
 ### 协程
+协程（goroutine）是golang提供的一种轻量级线程，采用多对多(多个协程对应内核多个线程)线程模型，对于协程最主要的是协程的启动和退出以及协程生命周期的管理，goroutine本身没有像Java语言提供对于线程生命周期时的各种函数调用，随用随关闭
+1. 启动
+   协程的启动使用go关键字
+   ```go
+   go func()
+   ```
+2. 退出
+   对于以下函数对于的协程退出，当协程非阻塞时，函数返回协程退出
+   ```go
+   func Do(){
+      // To Do
+   }
 
+   go Do()
+   ```
+3. 生命周期管理Context
+   上面讲到，Golang本身没有提供任何关于协程生命周期的函数接口调用，对于阻塞式函数，Context提供了一种类似信号式的解决思路
 ### 管道
+管道是golang提供的一种类似
