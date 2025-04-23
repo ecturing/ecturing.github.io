@@ -17,11 +17,11 @@ go install github.com/go-delve/delve/cmd/dlv@latest
    
    ```shell
    go build -gcflags "all=-N -l" -o binaryname
-```
+    ```
 3. 服务器启动程序运行，然后使用命令行启动附加当前服务进程并转发调试信息
    ```shell
    dlv attach $ServicePID --headless --listen=:$DebugServerPORT --api-version=2 --log --log-output=dap,debugger --only-same-user=false
-```
+    ```
 # 调试
 1. 在支持DAP协议的IDE或编辑器上连接到当前调试进程，以vscode为例。
    - 点击导航栏的运行按钮，点击添加配置
